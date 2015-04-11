@@ -182,9 +182,8 @@ func get(p *clientPair, r *http.Request) (*http.Response, error) {
 		sErr.Set(f.Close())
 
 		// Send any errors during streaming or cleanup to the client
-		if err := pw.CloseWithError(sErr.Get()); err != nil {
-			panic(err)
-		}
+		// This method always returns nil error.
+		_ = pw.CloseWithError(sErr.Get())
 	}()
 
 	// Send HTTP response with code, pipe reader body, and headers
